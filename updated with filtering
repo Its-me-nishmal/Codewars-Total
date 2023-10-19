@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codewars API</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: green;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .rank {
+            font-weight: bold;
+        }
+
+        /* Material Design-style buttons */
+        .md-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        .mdd-btn{
+            background-color: #b57b2bb4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px 5px 15px 5px;
+            font-size: 16px;
+        }
+
+        /* Add hover effect to buttons */
+        .md-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Loader */
+        .loader {
+            display: none;
+            text-align: center;
+        }
+
+        .loader i {
+            font-size: 48px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Codewars Users Stats</h1>
+        <div class="loader">
+            <i class="material-icons">autorenew</i>
+            <p>Loading...</p>
+        </div>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button class="md-btn" id="class5Btn">Common</button>
+            <button class="md-btn" id="class1Btn">SS 10</button>
+            <button class="md-btn" id="class2Btn">SS 09</button>
+            <button class="md-btn" id="class3Btn">SS 08</button>
+            <button class="md-btn" id="class4Btn">SS 07</button>
+        </div>
+        <div style="text-align: center;">
+            <button class="mdd-btn" id="sortTodayBtn">Sort by Today</button>
+            <button class="mdd-btn" id="sortTotalBtn">Sort by Total</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Total Challenges</th>
+                    <th>Today completed</th>
+                    <th>Latest Challenge Completed</th>
+                </tr>
+            </thead>
+            <tbody id="user-list">
+                <!-- User Stats will be added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const common = {
+            "Nishmal": "Its-me-nishmal",
+            "Amal Nath": "AmalNath-VS",
+            "Fahim": "muhammmedfahim4321",
+            "Abdul Bari": "Abdulbarikt",
+            "Afaf": "Afaf997",
+            "Subhin": "SUBHIN-TM",
+            "Rifna": "Rifna",
+            "Afsal Kp": "Afsalkp7",
+            "Jeeva": "Jeevamk",
+            "Krishnadas":"Krishnadas3",
+        };
+        const class1 = {
+            "Nishmal": "Its-me-nishmal",
+            "Amal": "AmalNath-VS",
+            
+        };
+        const class2 = {
+            "Rifna": "Rifna",
+            "Jeeva": "Jeevamk"
+        };
+        const class3 = {
+            "Afaf": "Afaf997",
+            "Afsal": "Afsalmp",
+            "Fahim": "muhammmedfahim4321",
+            "Abdul": "Abdulbarikt",
+            "Afaf": "Afaf997",
+            "Rifna": "Rifna"
+        };
+        const class4 = {
+            "Fahim": "muhammmedfahim4321",
+            "Abdul Bari": "Abdulbarikt",
+        };
+
+        const userItemsContainer = document.getElementById('user-list');
+        const sortTodayBtn = document.getElementById('sortTodayBtn');
+        const sortTotalBtn = document.getElementById('sortTotalBtn');
+        const loader = document.querySelector('.loader');
+
+        const fetchData = async (originalName, username) => {
+            // Show loader
+            loader.style.display = 'block';
+
+            const userDataResponse = await fetch(`https://www.codewars.com/api/v1/users/${username}`);
+            const userData = await userDataResponse.json();
+
+            // Fetch completed challenges data
+            const challengesResponse = await fetch(`https://www.codewars.com/api/v1/users/${username}/code-challenges/completed`);
+            const challengesData = await challengesResponse.json();
+
+            // Calculate completed challenges today
+            const today = new Date().toISOString().split('T')[0];
+            const completedToday = challengesData.data.filter(challenge => challenge.completedAt.startsWith(today));
+
+            // Find the latest challenge completed
+            const latestChallenge = challengesData.data[0];
+
+            const userItem = `
+                <tr>
+                    <td>${originalName}</td>
+                    <td style="text-align: center; color: GREEN;">${userData.codeChallenges.totalCompleted}</td>
+                    <td style="text-align: center; color: GREEN;">${completedToday.length}</td>
+                    <td>${latestChallenge ? latestChallenge.name : 'N/A'}</td>
+                </tr>`;
+
+            // Hide loader
+            loader.style.display = 'none';
+
+            return userItem;
+        };
+
+        function loadData(classData) {
+            Promise.all(Object.entries(classData).map(([originalName, username]) => fetchData(originalName, username))
+            )
+            .then((userItems) => {
+                userItemsContainer.innerHTML = userItems.join('');
+                sortTableByToday(); // Sort by today by default
+            })
+            .catch((error) => {
+                console.error('Error fetching data for users:', error);
+            });
+        }
+
+        function sortTableByToday() {
+            const rows = Array.from(userItemsContainer.children);
+            rows.sort((a, b) => {
+                const aToday = parseInt(a.children[2].textContent);
+                const bToday = parseInt(b.children[2].textContent);
+                return bToday - aToday;
+            });
+            userItemsContainer.innerHTML = '';
+            for (const row of rows) {
+                userItemsContainer.appendChild(row);
+            }
+        }
+
+        function sortTableByTotal() {
+            const rows = Array.from(userItemsContainer.children);
+            rows.sort((a, b) => {
+                const aTotal = parseInt(a.children[1].textContent);
+                const bTotal = parseInt(b.children[1].textContent);
+                return bTotal - aTotal;
+            });
+            userItemsContainer.innerHTML = '';
+            for (const row of rows) {
+                userItemsContainer.appendChild(row);
+            }
+        }
+
+        // Event listeners for each class button
+        document.getElementById('class1Btn').addEventListener('click', () => loadData(class1));
+        document.getElementById('class2Btn').addEventListener('click', () => loadData(class2));
+        document.getElementById('class3Btn').addEventListener('click', () => loadData(class3));
+        document.getElementById('class4Btn').addEventListener('click', () => loadData(class4));
+        document.getElementById('class5Btn').addEventListener('click', () => loadData(common));
+
+        // Event listeners for sorting buttons
+        sortTodayBtn.addEventListener('click', sortTableByToday);
+        sortTotalBtn.addEventListener('click', sortTableByTotal);
+
+        // Load data for the default class on page load
+        window.onload = () => loadData(common);
+    </script>
+</body>
+
+</html>
