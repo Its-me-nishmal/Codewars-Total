@@ -101,11 +101,11 @@
             <p>Loading...</p>
         </div>
         <div style="text-align: center; margin-bottom: 20px;">
-            <button class="md-btn" id="class5Btn">Common</button>
-            <button class="md-btn" id="class1Btn">SS 10</button>
-            <button class="md-btn" id="class2Btn">SS 09</button>
-            <button class="md-btn" id="class3Btn">SS 08</button>
-            <button class="md-btn" id="class4Btn">SS 07</button>
+            <button class="md-btn" id="class5Btn">SS 05</button>
+            <button class="md-btn" id="class1Btn">SS 01</button>
+            <button class="md-btn" id="class2Btn">SS 02</button>
+            <button class="md-btn" id="class3Btn">SS 03</button>
+            <button class="md-btn" id="class4Btn">SS 04</button>
         </div>
         <div style="text-align: center;">
             <button class="mdd-btn" id="sortTodayBtn">Sort by Today</button>
@@ -127,39 +127,104 @@
     </div>
 
     <script>
-        const common = {
-            "Nishmal": "Its-me-nishmal",
-            "Amal Nath": "AmalNath-VS",
-            "Fahim": "muhammmedfahim4321",
-            "Abdul Bari": "Abdulbarikt",
-            "Afaf": "Afaf997",
-            "Subhin": "SUBHIN-TM",
-            "Rifna": "Rifna",
-            "Afsal Kp": "Afsalkp7",
-            "Jeeva": "Jeevamk",
-            "Krishnadas":"Krishnadas3",
-        };
-        const class1 = {
-            "Nishmal": "Its-me-nishmal",
-            "Amal": "AmalNath-VS",
-            
-        };
-        const class2 = {
-            "Rifna": "Rifna",
-            "Jeeva": "Jeevamk"
-        };
-        const class3 = {
-            "Afaf": "Afaf997",
-            "Afsal": "Afsalmp",
-            "Fahim": "muhammmedfahim4321",
-            "Abdul": "Abdulbarikt",
-            "Afaf": "Afaf997",
-            "Rifna": "Rifna"
-        };
-        const class4 = {
-            "Fahim": "muhammmedfahim4321",
-            "Abdul Bari": "Abdulbarikt",
-        };
+        var SS1 = {
+"Muhammed Basheer K": "basheeromy",
+"Muhammed Hisham Dulfacker": "dulfackerhisham",
+"Muhammed Shaheer": "Shaheeerr",
+"Nizam K": "nizamkarippal",
+};
+
+var SS2 = {
+"Abhishek P": "abhishekpclt",
+"Aflah Ahamed P M": "AflahAhamed00",
+"Amrutha M": "Amrytha%20Muraleedharan",
+"Deepasree A": "Deepasree",
+"Muhammed Fayiz": "Muhammed%20Fayiz",
+"Muhammed Hadiq Jazar K P": "hadik987",
+"Muhammed Safvan K V": "MSAFVANKV",
+"Muhammed Shafeeq K": "shafeeeque",
+"Nashva K": "Nashva%20k",
+"Rahul P": "rahulsvaz",
+"Sarath Das": "Sarathdaskv"
+};
+
+var SS3 = {
+"Ajin E M": "Ajin_em",
+"Ansiya Banu P": "GtHubproject",
+"Muhammed Althaf C": "ALTHAF397",
+"Nishadali A": "Nishad6767",
+"Shakeer K": "shakeerk123",
+"Suhail Paredath": "Suhail.P"
+};
+var SS4 = {
+"Akhil S R": "",
+"Munavar Ali M": "munawaralimangat",
+"Radhadevan Erat": "Deverat",
+};
+var SS5 = {
+"Abhijith Nellikkat": "AbhijithNellikkat",
+"Aswindas C V": "ASWINDAS",
+"Mohammed Niyas N": "NIYASNY",
+"Premnadh B R": "premnadhbr",
+"Vyshnav A": "Vyshnav67"
+};
+var SS6 = {
+"Subin Sundar K V": "Subin%20Sundar%20Kv",
+"Rohith Krishna P": "rohithkrishna",
+};
+
+var SS7 = {
+"Abdu Raheem P": "raheempt",
+"Jithinraj P": "JithinRaj.P",
+"Athul Krishna B K": "athulbk"
+};
+
+var SS8 = {
+"Adila Millath C": "adila%20millath",
+"Afaf Perincheeri": "Afaf997",
+"Afsal K P": "Afsalkp7",
+"Anurag P": "Anurag%20%20p",
+"Jeeva M K": "Jeevamk",
+"Muhammad Nishmal P": "Its-me-nishmal",
+"Muhammed Fahim K P": "muhammmedfahim4321",
+"Muhammed Fayis C M": "Muhammed%20%20%20fayis%20%20%20CM",
+"Amal Nath V S": "AmalNath-VS",
+"Rifna C": "Rifna",
+};
+
+var SS9 = {
+"Abdul Bari KT": "Abdulbarikt",
+"Afsal Rahman MP": "Afsalmp",
+"Kirshnadas P": "Krishnadas3"
+};
+
+var SS10 = {
+'Arunjith S': "arunjithsurendran22",
+'SALMANUL FARIS CK': "salmanck66",
+'Aswin Pk': "aswin22244",
+'Arafath C T K': "arafu13",
+'KIRAN S': "kirans2255",
+'SUBIN TM': "SUBHIN-TM",
+'Muhammed Midlaj': "midu-zack"
+};
+
+var SS11 = {
+'Jeevan Abraham Joji': "jeevan-aj",
+'Abhinav B Manoj': "Abhinav B Manoj",
+'Hamim Thoyyib': "HAMIM THOYYIB",
+'Rohith c v': "devzrohith"
+};
+
+var SS12 = {
+'Muhammed Minhaj Kc': "minhajkc",
+'Muhammed Fahiz K': "fahiz",
+'Muhammed Ajmal': "ajmal1722"
+};
+
+var SS13 = {
+'Hadiya': "hadiya",
+"Muhammed shadil k": "shadil220"
+};
 
         const userItemsContainer = document.getElementById('user-list');
         const sortTodayBtn = document.getElementById('sortTodayBtn');
@@ -237,11 +302,11 @@
         }
 
         // Event listeners for each class button
-        document.getElementById('class1Btn').addEventListener('click', () => loadData(class1));
-        document.getElementById('class2Btn').addEventListener('click', () => loadData(class2));
-        document.getElementById('class3Btn').addEventListener('click', () => loadData(class3));
-        document.getElementById('class4Btn').addEventListener('click', () => loadData(class4));
-        document.getElementById('class5Btn').addEventListener('click', () => loadData(common));
+        document.getElementById('class1Btn').addEventListener('click', () => loadData(SS1));
+        document.getElementById('class2Btn').addEventListener('click', () => loadData(SS2));
+        document.getElementById('class3Btn').addEventListener('click', () => loadData(SS3));
+        document.getElementById('class4Btn').addEventListener('click', () => loadData(SS4));
+        document.getElementById('class5Btn').addEventListener('click', () => loadData(SS5));
 
         // Event listeners for sorting buttons
         sortTodayBtn.addEventListener('click', sortTableByToday);
