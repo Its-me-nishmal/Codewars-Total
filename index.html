@@ -400,7 +400,7 @@ var all = {
         sortTotalBtn.addEventListener('click', sortTableByTotal);
 
         // Load data for the default class on page load
-        window.onload = () => loadData(ss8);
+        window.onload = () => loadData(SS8);
     </script>
     <!-- Add the following script just before the closing </script> tag -->
 <script>
@@ -432,7 +432,6 @@ var all = {
 
     // Event listener for window load
     window.onload = () => {
-        loadData(ss8); // Load data for the default class on page load
         startAutoRefreshTimer(); // Start auto-refresh timer
         setInterval(startAutoRefreshTimer, 5000); // Set interval to refresh every 5 seconds
     };
