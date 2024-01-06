@@ -96,7 +96,6 @@
 <body>
     <div class="container">
         <h1>Codewars Users Stats</h1>
-        <p id="countdown">Auto Refresh in 5 seconds</p>
         <div class="loader">
             <i class="material-icons">autorenew</i>
             <p>Loading...</p>
@@ -379,78 +378,43 @@ var all = {
             }
         }
 
-        // Event listeners for each class button
-        document.getElementById('class1Btn').addEventListener('click', () => loadData(SS1));
-        document.getElementById('class2Btn').addEventListener('click', () => loadData(SS2));
-        document.getElementById('class3Btn').addEventListener('click', () => loadData(SS3));
-        document.getElementById('class4Btn').addEventListener('click', () => loadData(SS4));
-        document.getElementById('class5Btn').addEventListener('click', () => loadData(SS5));
-        document.getElementById('class6Btn').addEventListener('click', () => loadData(SS6));
-        document.getElementById('class7Btn').addEventListener('click', () => loadData(SS7));
-        document.getElementById('class8Btn').addEventListener('click', () => loadData(SS8));
-        document.getElementById('class9Btn').addEventListener('click', () => loadData(SS9));
-        document.getElementById('class10Btn').addEventListener('click', () => loadData(SS10));
-        document.getElementById('class11Btn').addEventListener('click', () => loadData(SS11));
-        document.getElementById('class12Btn').addEventListener('click', () => loadData(SS12));
-        document.getElementById('class13Btn').addEventListener('click', () => loadData(SS13));
-        document.getElementById('class14Btn').addEventListener('click', () => loadData(all));
+    let currentClass = null;
+
+    function autoRefreshData(classData) {
+        if (classData !== currentClass) {
+            currentClass = classData;
+            loadData(classData);
+        } else {
+            // Refresh the data for the same class
+            loadData(classData);
+        }
+        setTimeout(() => autoRefreshData(classData), 5000);
+    }
+
+    // Event listeners for each class button
+    document.getElementById('class1Btn').addEventListener('click', () => autoRefreshData(SS1));
+    document.getElementById('class2Btn').addEventListener('click', () => autoRefreshData(SS2));
+    document.getElementById('class3Btn').addEventListener('click', () => autoRefreshData(SS3));
+    document.getElementById('class4Btn').addEventListener('click', () => autoRefreshData(SS4));
+    document.getElementById('class5Btn').addEventListener('click', () => autoRefreshData(SS5));
+    document.getElementById('class6Btn').addEventListener('click', () => autoRefreshData(SS6));
+    document.getElementById('class7Btn').addEventListener('click', () => autoRefreshData(SS7));
+    document.getElementById('class8Btn').addEventListener('click', () => autoRefreshData(SS8));
+    document.getElementById('class9Btn').addEventListener('click', () => autoRefreshData(SS9));
+    document.getElementById('class10Btn').addEventListener('click', () => autoRefreshData(SS10));
+    document.getElementById('class11Btn').addEventListener('click', () => autoRefreshData(SS11));
+    document.getElementById('class12Btn').addEventListener('click', () => autoRefreshData(SS12));
+    document.getElementById('class13Btn').addEventListener('click', () => autoRefreshData(SS13));
+    document.getElementById('class14Btn').addEventListener('click', () => autoRefreshData(all));
+
 
         // Event listeners for sorting buttons
         sortTodayBtn.addEventListener('click', sortTableByToday);
         sortTotalBtn.addEventListener('click', sortTableByTotal);
 
         // Load data for the default class on page load
-        window.onload = () => loadData(SS8);
+        window.onload = () => loadData(ss8);
     </script>
-<!-- Add the following script just before the closing </script> tag -->
-<script>
-    // Function to update the countdown
-    function updateCountdown(seconds) {
-        const countdownParagraph = document.getElementById('countdown');
-        countdownParagraph.textContent = `Auto Refresh in ${seconds} seconds`;
-    }
-
-    // Function to refresh the page with the current class
-    function refreshPageWithClass(currentClass) {
-        location.href = `${location.origin}${location.pathname}?class=${currentClass}`;
-    }
-
-    // Function to handle the countdown and refresh
-    function startAutoRefreshTimer(currentClass) {
-        let seconds = 5;
-
-        const countdownInterval = setInterval(() => {
-            updateCountdown(seconds);
-            seconds--;
-
-            if (seconds < 0) {
-                clearInterval(countdownInterval);
-                refreshPageWithClass(currentClass);
-            }
-        }, 1000);
-    }
-
-    // Function to get the class parameter from the URL
-    function getClassFromUrl() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('class') || 'ss8'; // Default to ss8 if no class is specified
-    }
-
-    // Event listener for window load
-    window.onload = () => {
-        const currentClass = getClassFromUrl();
-        loadData(window[currentClass]); // Load data for the specified class from the URL parameter
-        startAutoRefreshTimer(currentClass); // Start auto-refresh timer
-        setInterval(() => {
-            const newClass = getClassFromUrl();
-            if (newClass !== currentClass) {
-                location.reload();
-            }
-        }, 5000); // Set interval to check if the class has changed every 5 seconds
-    };
-</script>
-
-
 </body>
 
 </html>
