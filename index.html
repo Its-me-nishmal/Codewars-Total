@@ -237,8 +237,10 @@ var SS13 = {
 "Muhammed shadil k": "shadil220"
 };
 
-var all = {
-    "Muhammed Basheer K": "basheeromy",
+
+
+        var part1 = {
+            "Muhammed Basheer K": "basheeromy",
 "Muhammed Hisham Dulfacker": "dulfackerhisham",
 "Muhammed Shaheer": "Shaheeerr",
 "Nizam K": "nizamkarippal",
@@ -268,8 +270,11 @@ var all = {
 "Vyshnav A": "Vyshnav67",
     "Subin Sundar K V": "Subin%20Sundar%20Kv",
 "Rohith Krishna P": "rohithkrishna",
-    "Abdu Raheem P": "raheempt",
-"Jithinraj P": "JithinRaj.P",
+    "Abdu Raheem P": "raheempt"
+    };
+
+    var part2 = {
+      "Jithinraj P": "JithinRaj.P",
 "Athul Krishna B K": "athulbk",
     "Adila Millath C": "adila%20millath",
 "Afaf Perincheeri": "Afaf997",
@@ -300,13 +305,36 @@ var all = {
 'Muhammed Ajmal': "ajmal1722",
     'Hadiya': "hadiya",
 "Muhammed shadil k": "shadil220"
-}
+    };
         
 
         const userItemsContainer = document.getElementById('user-list');
         const sortTodayBtn = document.getElementById('sortTodayBtn');
         const sortTotalBtn = document.getElementById('sortTotalBtn');
         const loader = document.querySelector('.loader');
+        const fetchDataForSubset = async (subset) => {
+        // Show loader
+        loader.style.display = 'block';
+
+        // Fetch data for each user in the subset
+        const userItems = await Promise.all(Object.entries(subset).map(([originalName, username]) => fetchData(originalName, username)));
+
+        // Hide loader
+        loader.style.display = 'none';
+
+        return userItems.join('');
+    };
+         const loadAllData = async () => {
+        const userItems1 = await fetchDataForSubset(part1);
+        userItemsContainer.innerHTML = userItems1;
+        sortTableByToday(); // Sort by today for the first subset
+
+        // Add a delay before loading the second subset
+        await new Promise(resolve => setTimeout(resolve, 3000)); // Adjust the delay as needed
+
+        const userItems2 = await fetchDataForSubset(part2);
+        userItemsContainer.innerHTML += userItems2;
+    };
 
         const fetchData = async (originalName, username) => {
             // Show loader
@@ -392,14 +420,14 @@ var all = {
         document.getElementById('class11Btn').addEventListener('click', () => loadData(SS11));
         document.getElementById('class12Btn').addEventListener('click', () => loadData(SS12));
         document.getElementById('class13Btn').addEventListener('click', () => loadData(SS13));
-        document.getElementById('class14Btn').addEventListener('click', () => loadData(all));
+        document.getElementById('class14Btn').addEventListener('click', () => loadData(loadAllData));
 
         // Event listeners for sorting buttons
         sortTodayBtn.addEventListener('click', sortTableByToday);
         sortTotalBtn.addEventListener('click', sortTableByTotal);
 
         // Load data for the default class on page load
-        window.onload = () => loadData(SS8);
+        window.onload = loadAllData;
     </script>
 </body>
 
