@@ -402,7 +402,7 @@ var all = {
         // Load data for the default class on page load
         window.onload = () => loadData(SS8);
     </script>
-    <!-- Add the following script just before the closing </script> tag -->
+<!-- Add the following script just before the closing </script> tag -->
 <script>
     // Function to update the countdown
     function updateCountdown(seconds) {
@@ -410,13 +410,13 @@ var all = {
         countdownParagraph.textContent = `Auto Refresh in ${seconds} seconds`;
     }
 
-    // Function to refresh the page
-    function refreshPage() {
-        location.reload();
+    // Function to refresh the page with the current class
+    function refreshPageWithClass(currentClass) {
+        location.href = `${location.origin}${location.pathname}?class=${currentClass}`;
     }
 
     // Function to handle the countdown and refresh
-    function startAutoRefreshTimer() {
+    function startAutoRefreshTimer(currentClass) {
         let seconds = 5;
 
         const countdownInterval = setInterval(() => {
@@ -425,17 +425,31 @@ var all = {
 
             if (seconds < 0) {
                 clearInterval(countdownInterval);
-                refreshPage();
+                refreshPageWithClass(currentClass);
             }
         }, 1000);
     }
 
+    // Function to get the class parameter from the URL
+    function getClassFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('class') || 'ss8'; // Default to ss8 if no class is specified
+    }
+
     // Event listener for window load
     window.onload = () => {
-        startAutoRefreshTimer(); // Start auto-refresh timer
-        setInterval(startAutoRefreshTimer, 5000); // Set interval to refresh every 5 seconds
+        const currentClass = getClassFromUrl();
+        loadData(window[currentClass]); // Load data for the specified class from the URL parameter
+        startAutoRefreshTimer(currentClass); // Start auto-refresh timer
+        setInterval(() => {
+            const newClass = getClassFromUrl();
+            if (newClass !== currentClass) {
+                location.reload();
+            }
+        }, 5000); // Set interval to check if the class has changed every 5 seconds
     };
 </script>
+
 
 </body>
 
