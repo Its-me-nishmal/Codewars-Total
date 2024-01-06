@@ -378,35 +378,21 @@ var all = {
             }
         }
 
-    let currentClass = null;
-
-    function autoRefreshData(classData) {
-        if (classData !== currentClass) {
-            currentClass = classData;
-            loadData(classData);
-        } else {
-            // Refresh the data for the same class
-            loadData(classData);
-        }
-        setTimeout(() => autoRefreshData(classData), 7000);
-    }
-
-    // Event listeners for each class button
-    document.getElementById('class1Btn').addEventListener('click', () => autoRefreshData(SS1));
-    document.getElementById('class2Btn').addEventListener('click', () => autoRefreshData(SS2));
-    document.getElementById('class3Btn').addEventListener('click', () => autoRefreshData(SS3));
-    document.getElementById('class4Btn').addEventListener('click', () => autoRefreshData(SS4));
-    document.getElementById('class5Btn').addEventListener('click', () => autoRefreshData(SS5));
-    document.getElementById('class6Btn').addEventListener('click', () => autoRefreshData(SS6));
-    document.getElementById('class7Btn').addEventListener('click', () => autoRefreshData(SS7));
-    document.getElementById('class8Btn').addEventListener('click', () => autoRefreshData(SS8));
-    document.getElementById('class9Btn').addEventListener('click', () => autoRefreshData(SS9));
-    document.getElementById('class10Btn').addEventListener('click', () => autoRefreshData(SS10));
-    document.getElementById('class11Btn').addEventListener('click', () => autoRefreshData(SS11));
-    document.getElementById('class12Btn').addEventListener('click', () => autoRefreshData(SS12));
-    document.getElementById('class13Btn').addEventListener('click', () => autoRefreshData(SS13));
-    document.getElementById('class14Btn').addEventListener('click', () => autoRefreshData(all));
-
+        // Event listeners for each class button
+        document.getElementById('class1Btn').addEventListener('click', () => loadData(SS1));
+        document.getElementById('class2Btn').addEventListener('click', () => loadData(SS2));
+        document.getElementById('class3Btn').addEventListener('click', () => loadData(SS3));
+        document.getElementById('class4Btn').addEventListener('click', () => loadData(SS4));
+        document.getElementById('class5Btn').addEventListener('click', () => loadData(SS5));
+        document.getElementById('class6Btn').addEventListener('click', () => loadData(SS6));
+        document.getElementById('class7Btn').addEventListener('click', () => loadData(SS7));
+        document.getElementById('class8Btn').addEventListener('click', () => loadData(SS8));
+        document.getElementById('class9Btn').addEventListener('click', () => loadData(SS9));
+        document.getElementById('class10Btn').addEventListener('click', () => loadData(SS10));
+        document.getElementById('class11Btn').addEventListener('click', () => loadData(SS11));
+        document.getElementById('class12Btn').addEventListener('click', () => loadData(SS12));
+        document.getElementById('class13Btn').addEventListener('click', () => loadData(SS13));
+        document.getElementById('class14Btn').addEventListener('click', () => loadData(all));
 
         // Event listeners for sorting buttons
         sortTodayBtn.addEventListener('click', sortTableByToday);
