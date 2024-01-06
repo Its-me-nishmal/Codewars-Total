@@ -330,7 +330,7 @@ var SS13 = {
         sortTableByToday(); // Sort by today for the first subset
 
         // Add a delay before loading the second subset
-        await new Promise(resolve => setTimeout(resolve, 3000)); // Adjust the delay as needed
+        await new Promise(resolve => setTimeout(resolve, 5000)); // Adjust the delay as needed
 
         const userItems2 = await fetchDataForSubset(part2);
         userItemsContainer.innerHTML += userItems2;
