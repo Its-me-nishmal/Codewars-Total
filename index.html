@@ -96,6 +96,7 @@
 <body>
     <div class="container">
         <h1>Codewars Users Stats</h1>
+        <p id="countdown">Auto Refresh in 5 seconds</p>
         <div class="loader">
             <i class="material-icons">autorenew</i>
             <p>Loading...</p>
@@ -401,6 +402,42 @@ var all = {
         // Load data for the default class on page load
         window.onload = () => loadData(ss8);
     </script>
+    <!-- Add the following script just before the closing </script> tag -->
+<script>
+    // Function to update the countdown
+    function updateCountdown(seconds) {
+        const countdownParagraph = document.getElementById('countdown');
+        countdownParagraph.textContent = `Auto Refresh in ${seconds} seconds`;
+    }
+
+    // Function to refresh the page
+    function refreshPage() {
+        location.reload();
+    }
+
+    // Function to handle the countdown and refresh
+    function startAutoRefreshTimer() {
+        let seconds = 5;
+
+        const countdownInterval = setInterval(() => {
+            updateCountdown(seconds);
+            seconds--;
+
+            if (seconds < 0) {
+                clearInterval(countdownInterval);
+                refreshPage();
+            }
+        }, 1000);
+    }
+
+    // Event listener for window load
+    window.onload = () => {
+        loadData(ss8); // Load data for the default class on page load
+        startAutoRefreshTimer(); // Start auto-refresh timer
+        setInterval(startAutoRefreshTimer, 5000); // Set interval to refresh every 5 seconds
+    };
+</script>
+
 </body>
 
 </html>
