@@ -106,7 +106,8 @@
 
 
         </div>
-        <button id="downloadPdfButton">Download as PDF</button>
+        <button id="cmd">Generate PDF</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
         <div style="text-align: center; margin-bottom: 20px;">
             
             <button class="md-btn" id="class1Btn">SS 01</button>
@@ -434,26 +435,23 @@ var SS13 = {
 
         // Load data for the default class on page load
         window.onload = loadAllData;
-    </script>
-    <!-- Add this before the closing </body> tag of your HTML file -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.0/html2pdf.bundle.js" onload="initializeHtmlToPdf()"></script>
-<script>
-  document.getElementById('downloadPdfButton').addEventListener('click', () => {
-    // Scroll to the top of the page before capturing the entire content
-    window.scrollTo(0, 0);
+        var doc = new jsPDF();
+    var specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
 
-    const element = document.body;
-
-    html2pdf(element, {
-      margin: 10,
-      filename: 'bynishmal.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      pagebreak: { mode: 'avoid-all' } // Avoid breaking pages in the middle of elements
+    $('#cmd').click(function () {
+        doc.fromHTML($('#content').html(), 15, 15, {
+            'width': 170,
+                'elementHandlers': specialElementHandlers
+        });
+        doc.save('sample-file.pdf');
     });
-  });
-</script>
+
+    </script>
+
 
 </body>
 
