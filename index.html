@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codewars API</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Add this in the <head> section of your HTML file -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.0/html2pdf.bundle.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -99,6 +102,9 @@
         <div class="loader">
             <i class="material-icons">autorenew</i>
             <p>Loading...</p>
+            <!-- Add this wherever you want the button to appear in your HTML file -->
+<button id="downloadPdfButton">Download as PDF</button>
+
         </div>
         <div style="text-align: center; margin-bottom: 20px;">
             
@@ -428,6 +434,25 @@ var SS13 = {
         // Load data for the default class on page load
         window.onload = loadAllData;
     </script>
+    <!-- Add this before the closing </body> tag of your HTML file -->
+<script>
+  document.getElementById('downloadPdfButton').addEventListener('click', () => {
+    // Scroll to the top of the page before capturing the entire content
+    window.scrollTo(0, 0);
+
+    const element = document.body;
+
+    html2pdf(element, {
+      margin: 10,
+      filename: 'bynishmal.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: 'avoid-all' } // Avoid breaking pages in the middle of elements
+    });
+  });
+</script>
+
 </body>
 
 </html>
