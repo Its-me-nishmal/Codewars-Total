@@ -425,7 +425,7 @@ var SS13 = {
         document.getElementById('class11Btn').addEventListener('click', () => loadData(SS11));
         document.getElementById('class12Btn').addEventListener('click', () => loadData(SS12));
         document.getElementById('class13Btn').addEventListener('click', () => loadData(SS13));
-        document.getElementById('class14Btn').addEventListener('click', () => loadData(loadAllData));
+        document.getElementById('class14Btn').addEventListener('click', () =>  loadAllData);
 
         // Event listeners for sorting buttons
         sortTodayBtn.addEventListener('click', sortTableByToday);
@@ -435,6 +435,7 @@ var SS13 = {
         window.onload = loadAllData;
     </script>
     <!-- Add this before the closing </body> tag of your HTML file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.0/html2pdf.bundle.js" onload="initializeHtmlToPdf()"></script>
 <script>
   document.getElementById('downloadPdfButton').addEventListener('click', () => {
     // Scroll to the top of the page before capturing the entire content
